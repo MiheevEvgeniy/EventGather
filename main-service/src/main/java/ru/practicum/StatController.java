@@ -24,34 +24,35 @@ import java.util.Map;
 public class StatController {
 
     private final StatClient statClient;
+
     @Autowired
     public StatController(@Value("${ewm-stat-server.url}") String serverUrl, RestTemplateBuilder builder) {
 
         this.statClient = new StatClient(builder
-               .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
-               .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
+                .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
+                .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
     }
 
     @PostMapping("hit")
     public ResponseEntity<Object> addHit(@RequestBody HitDto hitDto) {
-        return statClient.post("hit",hitDto);
+        return statClient.post("hit", hitDto);
     }
 
     @GetMapping("stats")
     public ResponseEntity<Object> getStatistics(@RequestParam
                                                 @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
                                                 LocalDateTime start,
-                                             @RequestParam
+                                                @RequestParam
                                                 @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
                                                 LocalDateTime end,
-                                             @RequestParam(defaultValue = "false") Boolean unique,
-                                             @RequestParam(required = false) List<String> uris) {
+                                                @RequestParam(defaultValue = "false") Boolean unique,
+                                                @RequestParam(required = false) List<String> uris) {
         Map<String, Object> parameters = Map.of(
                 "start", start,
                 "end", end,
-                "unique",unique,
-                "uris",uris
+                "unique", unique,
+                "uris", uris
         );
-        return statClient.get("stats",parameters);
+        return statClient.get("stats", parameters);
     }
 }

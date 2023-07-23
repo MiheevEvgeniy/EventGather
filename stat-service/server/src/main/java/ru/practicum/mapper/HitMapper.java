@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class HitMapper {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Hit toEntity(HitDto hitDto){
+    public Hit toEntity(HitDto hitDto) {
         Hit hit = new Hit();
         hit.setIp(hitDto.getIp());
         hit.setUri(hitDto.getUri());
@@ -20,7 +20,8 @@ public class HitMapper {
         hit.setTimestamp(LocalDateTime.parse(hitDto.getTimestamp(), formatter));
         return hit;
     }
-    public HitDto toDto(Hit hit){
+
+    public HitDto toDto(Hit hit) {
         return HitDto.builder()
                 .ip(hit.getIp())
                 .timestamp(hit.getTimestamp().toString())
@@ -28,7 +29,8 @@ public class HitMapper {
                 .uri(hit.getUri())
                 .build();
     }
-    public HitForStatDto toStatDtoFromEntity(Hit hit, Long hits){
+
+    public HitForStatDto toStatDtoFromEntity(Hit hit, Long hits) {
         return HitForStatDto.builder()
                 .app(hit.getApp())
                 .uri(hit.getUri())

@@ -1,6 +1,5 @@
 package ru.practicum.service;
 
-import org.springframework.http.ResponseEntity;
 import ru.practicum.dtos.HitDto;
 import ru.practicum.dtos.HitForStatDto;
 

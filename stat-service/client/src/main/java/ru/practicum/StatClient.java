@@ -1,6 +1,8 @@
 package ru.practicum;
 
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -46,12 +48,12 @@ public class StatClient {
         return patch(path, parameters, null);
     }
 
-    protected <T> ResponseEntity<Object> patch(String path,@Nullable Map<String, Object> parameters, T body) {
+    protected <T> ResponseEntity<Object> patch(String path, @Nullable Map<String, Object> parameters, T body) {
         return makeAndSendRequest(HttpMethod.PATCH, path, parameters, body);
     }
 
     protected ResponseEntity<Object> delete(String path) {
-        return delete(path,null);
+        return delete(path, null);
     }
 
     protected ResponseEntity<Object> delete(String path, @Nullable Map<String, Object> parameters) {
