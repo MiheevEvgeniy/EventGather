@@ -38,14 +38,14 @@ public class HitServiceImpl implements HitService {
                     .filter(hit -> set.add(hit.getUri()))
                     .map(hit -> mapper.toStatDtoFromEntity(hit,repository.countByUri(hit.getUri())))
                     .sorted(Comparator.comparingLong(HitForStatDto::getHits).reversed())
-                    .toList();
+                    .collect(Collectors.toList());
         }else {
             return hits.stream()
                     .filter(hit -> set.add(hit.getIp()))
                     .filter(hit -> set.add(hit.getUri()))
                     .map(hit -> mapper.toStatDtoFromEntity(hit,repository.countByDistinctIp(hit.getUri())))
                     .sorted(Comparator.comparingLong(HitForStatDto::getHits).reversed())
-                    .toList();
+                    .collect(Collectors.toList());
         }
 
     }

@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dtos.HitDto;
 import ru.practicum.dtos.HitForStatDto;
-import ru.practicum.model.Hit;
-import ru.practicum.service.HitServiceImpl;
+import ru.practicum.service.HitService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class HitController {
-    private final HitServiceImpl service;
+    private final HitService service;
 
     @PostMapping("hit")
     public String addHit(@RequestBody HitDto hitDto) {
