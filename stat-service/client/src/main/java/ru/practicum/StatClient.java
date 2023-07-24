@@ -1,94 +1,50 @@
 package ru.practicum;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.dtos.HitDto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
-public class StatClient {
-    protected final RestTemplate rest;
+@Service
+public class StatClient extends BaseClient {
 
-    public StatClient(RestTemplate rest) {
-        this.rest = rest;
+    @Autowired
+    public StatClient(@Value("${ewm-stat-server.url}") String serverUrl, RestTemplateBuilder builder) {
+        super(
+                builder
+                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
+                        .requestFactory(HttpComponentsClientHttpRequestFactory::new)
+                        .build()
+        );
+    }
+    public ResponseEntity<Object> addHit(HitDto hitDto) {
+        return post("/hit", hitDto);
     }
 
-    protected ResponseEntity<Object> get(String path) {
-        return get(path, null);
-    }
-
-    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
-    }
-
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return post(path, null, body);
-    }
-
-    protected <T> ResponseEntity<Object> post(String path, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, parameters, body);
-    }
-
-    protected <T> ResponseEntity<Object> put(String path, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.PUT, path, parameters, body);
-    }
-
-    protected <T> ResponseEntity<Object> patch(String path) {
-        return patch(path, null, null);
-    }
-
-    protected <T> ResponseEntity<Object> patch(String path, T body) {
-        return patch(path, null, body);
-    }
-
-    protected <T> ResponseEntity<Object> patch(String path, Map<String, Object> parameters) {
-        return patch(path, parameters, null);
-    }
-
-    protected <T> ResponseEntity<Object> patch(String path, @Nullable Map<String, Object> parameters, T body) {
-        return makeAndSendRequest(HttpMethod.PATCH, path, parameters, body);
-    }
-
-    protected ResponseEntity<Object> delete(String path) {
-        return delete(path, null);
-    }
-
-    protected ResponseEntity<Object> delete(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.DELETE, path, parameters, null);
-    }
-
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
-        HttpEntity<T> requestEntity = new HttpEntity<>(body);
-        System.out.println(path);
-        ResponseEntity<Object> serverResponse;
-        try {
-            if (parameters != null) {
-                serverResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
-            } else {
-                serverResponse = rest.exchange(path, method, requestEntity, Object.class);
-            }
-        } catch (HttpStatusCodeException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
-        }
-        return prepareResponse(serverResponse);
-    }
-
-    private static ResponseEntity<Object> prepareResponse(ResponseEntity<Object> response) {
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response;
-        }
-
-        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
-
-        if (response.hasBody()) {
-            return responseBuilder.body(response.getBody());
-        }
-
-        return responseBuilder.build();
+    public ResponseEntity<Object> getStatistics(String start,
+                                                String end,
+                                                Boolean unique,
+                                                List<String> uris) {
+        Map<String, Object> parameters = Map.of(
+                "start", start,
+                "end", end,
+                "unique", unique,
+                "uris", uris
+        );
+        return get("/stats?start={start}&end={end}&unique={unique}&uris={uris}", parameters);
     }
 }

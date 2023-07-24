@@ -9,50 +9,49 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dtos.HitDto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/")
-@RequiredArgsConstructor
+@RequestMapping
 @Slf4j
 public class StatController {
 
-    private final StatClient statClient;
-
+    private final StatClient client;
     @Autowired
-    public StatController(@Value("${ewm-stat-server.url}") String serverUrl, RestTemplateBuilder builder) {
-
-        this.statClient = new StatClient(builder
-                .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
-                .requestFactory(HttpComponentsClientHttpRequestFactory::new).build());
+    public StatController(@Value("${ewm-stat-server.url}") String serverUrl,
+                          RestTemplateBuilder builder){
+        this.client = new StatClient(serverUrl,builder);
     }
 
     @PostMapping("hit")
     public ResponseEntity<Object> addHit(@RequestBody HitDto hitDto) {
-        return statClient.post("hit", hitDto);
+        return client.addHit(hitDto);
     }
 
     @GetMapping("stats")
     public ResponseEntity<Object> getStatistics(@RequestParam
-                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-                                                LocalDateTime start,
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                                        pattern = "yyyy-MM-dd HH:mm:ss")
+                                                String start,
                                                 @RequestParam
-                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-                                                LocalDateTime end,
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                                        pattern = "yyyy-MM-dd HH:mm:ss")
+                                                String end,
                                                 @RequestParam(defaultValue = "false") Boolean unique,
                                                 @RequestParam(required = false) List<String> uris) {
-        Map<String, Object> parameters = Map.of(
-                "start", start,
-                "end", end,
-                "unique", unique,
-                "uris", uris
-        );
-        return statClient.get("stats", parameters);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startFormatted = LocalDateTime.parse(start,formatter);
+        LocalDateTime endFormatted = LocalDateTime.parse(end,formatter);
+        System.out.println(startFormatted);
+        System.out.println(startFormatted);
+        System.out.println(startFormatted);
+        System.out.println(startFormatted);
+        return client.getStatistics(start,end,unique,uris);
     }
 }

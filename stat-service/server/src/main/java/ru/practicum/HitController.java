@@ -27,11 +27,13 @@ public class HitController {
     }
 
     @GetMapping("stats")
-    public List<HitForStatDto> getStatistics(@RequestParam
-                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public List<HitForStatDto> getStatistics(@RequestParam(value = "start",defaultValue = "1")
+                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                                         pattern = "yyyy-MM-dd HH:mm:ss")
                                              LocalDateTime start,
                                              @RequestParam
-                                             @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                                     pattern = "yyyy-MM-dd HH:mm:ss")
                                              LocalDateTime end,
                                              @RequestParam(defaultValue = "false") Boolean unique,
                                              @RequestParam(required = false) List<String> uris) {

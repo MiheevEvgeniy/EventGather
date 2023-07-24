@@ -23,9 +23,17 @@ services:
       POSTGRES_USER: klingTone
       POSTGRES_PASSWORD: 12345
 
-#  ewm-service:
-#    ports:
-#      - "8080:8080"
-#
-#  ewm-db:
-#    image: postgres:14-alpine
+  ewm-service:
+    build: main-service/
+    image: main
+    container_name: ewm-main-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ewm-db
+
+  ewm-db:
+    image: postgres:14-alpine
+    container_name: ewm-db
+    ports:
+      - 4321:1234
