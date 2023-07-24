@@ -6,7 +6,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +60,8 @@ public class BaseClient {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
         System.out.println(path);
         ResponseEntity<Object> serverResponse;
-        ParameterizedTypeReference<Object> responseType = new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<Object> responseType = new ParameterizedTypeReference<>() {
+        };
         try {
             if (parameters != null) {
                 serverResponse = rest.exchange(path, method, requestEntity, responseType, parameters);
