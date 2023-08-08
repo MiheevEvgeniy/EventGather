@@ -13,5 +13,5 @@ public interface HitService {
                                       List<String> uris);
 
 
-    String addHit(HitDto hitDto);
+    void addHit(HitDto hitDto);
 }

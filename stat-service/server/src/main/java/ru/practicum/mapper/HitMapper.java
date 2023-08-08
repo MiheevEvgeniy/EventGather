@@ -10,21 +10,20 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 public class HitMapper {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Hit toEntity(HitDto hitDto) {
         Hit hit = new Hit();
         hit.setIp(hitDto.getIp());
         hit.setUri(hitDto.getUri());
         hit.setApp(hitDto.getApp());
-        hit.setTimestamp(LocalDateTime.parse(hitDto.getTimestamp(), formatter));
+        hit.setTimestamp(hitDto.getTimestamp());
         return hit;
     }
 
     public HitDto toDto(Hit hit) {
         return HitDto.builder()
                 .ip(hit.getIp())
-                .timestamp(hit.getTimestamp().toString())
+                .timestamp(hit.getTimestamp())
                 .app(hit.getApp())
                 .uri(hit.getUri())
                 .build();

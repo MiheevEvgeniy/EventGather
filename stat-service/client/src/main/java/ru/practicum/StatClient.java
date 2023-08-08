@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dtos.HitDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -25,12 +26,18 @@ public class StatClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> addHit(HitDto hitDto) {
-        return post("/hit", hitDto);
+    public void addHit(String app, String uri, String ip, LocalDateTime timestamp) {
+        HitDto hitDto = HitDto.builder()
+                .app(app)
+                .uri(uri)
+                .ip(ip)
+                .timestamp(timestamp)
+                .build();
+        post("/hit", hitDto);
     }
 
-    public ResponseEntity<Object> getStatistics(String start,
-                                                String end,
+    public ResponseEntity<Object> getStatistics(LocalDateTime start,
+                                                LocalDateTime end,
                                                 Boolean unique,
                                                 List<String> uris) {
         Map<String, Object> parameters = Map.of(
