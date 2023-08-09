@@ -38,6 +38,7 @@ public class ErrorHandler {
                 e.getMessage(),
                 LocalDateTime.now());
     }
+
     @Getter
     private static class ApiError {
         String message;
