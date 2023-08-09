@@ -22,7 +22,7 @@ public class HitController {
     @PostMapping("hit")
     @ResponseStatus(HttpStatus.CREATED)
     public void addHit(@RequestBody HitDto hitDto) {
-        log.info("Обработка запроса addHit начата: {}", hitDto);
+        log.info("Запроса addHit начат с телом: {}", hitDto);
         service.addHit(hitDto);
         log.info("Запрос завершен");
     }
