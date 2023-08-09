@@ -22,6 +22,7 @@ public class UserMapper {
                 .name(entity.getName())
                 .build();
     }
+
     public UserShortDto toShortDto(User entity) {
         return UserShortDto.builder()
                 .id(entity.getId())

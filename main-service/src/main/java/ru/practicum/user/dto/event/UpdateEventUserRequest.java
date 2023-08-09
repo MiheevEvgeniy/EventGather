@@ -3,7 +3,6 @@ package ru.practicum.user.dto.event;
 import lombok.Builder;
 import lombok.Data;
 import ru.practicum.enums.EventStateAction;
-import ru.practicum.enums.States;
 import ru.practicum.event.model.EventLocation;
 
 import java.time.LocalDateTime;

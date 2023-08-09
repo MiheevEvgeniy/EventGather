@@ -1,13 +1,9 @@
 package ru.practicum.user.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.admin.dto.user.NewUserRequest;
-import ru.practicum.admin.dto.user.UserDto;
-import ru.practicum.admin.dto.user.UserShortDto;
 import ru.practicum.user.dto.request.EventRequestStatusUpdateResult;
 import ru.practicum.user.dto.request.ParticipationRequestDto;
 import ru.practicum.user.model.Request;
-import ru.practicum.user.model.User;
 
 import java.util.List;
 
@@ -32,6 +28,7 @@ public class RequestMapper {
                 .status(entity.getStatus())
                 .build();
     }
+
     public EventRequestStatusUpdateResult toResultDto(List<ParticipationRequestDto> confirmed,
                                                       List<ParticipationRequestDto> rejected) {
         return EventRequestStatusUpdateResult.builder()

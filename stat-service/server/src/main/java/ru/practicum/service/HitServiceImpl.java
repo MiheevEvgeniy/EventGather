@@ -26,14 +26,14 @@ public class HitServiceImpl implements HitService {
         Set<String> set = new HashSet<>();
         List<Hit> hits;
         if (uris != null && !uris.isEmpty()) {
-            if(uris.get(0).startsWith("[") && uris.get(0).endsWith("]")){
+            if (uris.get(0).startsWith("[") && uris.get(0).endsWith("]")) {
                 List<String> urisCut = new ArrayList<>();
-                for (String uri:uris) {
-                    urisCut.add(uri.substring(1, uri.length()-1));
+                for (String uri : uris) {
+                    urisCut.add(uri.substring(1, uri.length() - 1));
                 }
                 System.out.println(urisCut);
                 hits = repository.getAllStatisticsWithUri(start, end, urisCut);
-            }else {
+            } else {
                 hits = repository.getAllStatisticsWithUri(start, end, uris);
             }
         } else {

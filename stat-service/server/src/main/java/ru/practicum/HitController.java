@@ -2,7 +2,6 @@ package ru.practicum;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dtos.HitDto;
@@ -28,12 +27,12 @@ public class HitController {
 
     @GetMapping("stats")
     public List<HitForStatDto> getStatistics(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
-                                                    pattern = "yyyy-MM-dd HH:mm:ss",
-                                            fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
                                              LocalDateTime start,
                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
-                                                    pattern = "yyyy-MM-dd HH:mm:ss",
-                                             fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
+                                                     pattern = "yyyy-MM-dd HH:mm:ss",
+                                                     fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
                                              LocalDateTime end,
                                              @RequestParam(defaultValue = "false") Boolean unique,
                                              @RequestParam(required = false) List<String> uris) {

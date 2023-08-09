@@ -18,14 +18,15 @@ public class CategoryController {
 
     @GetMapping
     public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") @Min(0) int from,
-                                           @RequestParam(defaultValue = "10") @Min(1) int size){
-        log.info("Запрос getCategories начат с параметрами from {} и size {}",from,size);
-        List<CategoryDto> result = service.getCategories(from,size);
-        log.info("Запрос завершен {}",result);
+                                           @RequestParam(defaultValue = "10") @Min(1) int size) {
+        log.info("Запрос getCategories начат с параметрами from {} и size {}", from, size);
+        List<CategoryDto> result = service.getCategories(from, size);
+        log.info("Запрос завершен {}", result);
         return result;
     }
+
     @GetMapping("/{catId}")
-    public CategoryDto getCategoryById(@PathVariable long catId){
+    public CategoryDto getCategoryById(@PathVariable long catId) {
         return service.getCategoryById(catId);
     }
 }

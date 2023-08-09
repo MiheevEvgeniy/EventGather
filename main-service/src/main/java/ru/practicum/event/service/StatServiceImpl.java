@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.practicum.StatClient;
 import ru.practicum.dtos.HitForStatDto;
-import ru.practicum.event.model.Event;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -35,7 +34,7 @@ public class StatServiceImpl implements StatService {
     }
 
     @Override
-    public List<HitForStatDto> getStats(LocalDateTime start, LocalDateTime end,Boolean unique, List<String> uris) {
+    public List<HitForStatDto> getStats(LocalDateTime start, LocalDateTime end, Boolean unique, List<String> uris) {
         ResponseEntity<Object> response = statsClient.getStatistics(start, end, unique, uris);
         try {
             return Arrays.asList(mapper.readValue(mapper.writeValueAsString(response.getBody()), HitForStatDto[].class));
@@ -47,16 +46,14 @@ public class StatServiceImpl implements StatService {
     @Override
     public Long getViews(Long eventId) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        formatter.format(LocalDateTime.now());
-        System.out.println(LocalDateTime.now().minusYears(50));
         List<HitForStatDto> hits = getStats(
                 LocalDateTime.parse(formatter.format(LocalDateTime.now().minusYears(50)), formatter),
                 LocalDateTime.parse(formatter.format(LocalDateTime.now()), formatter),
                 true,
-                List.of("/events/"+eventId));
-        if(!hits.isEmpty()){
+                List.of("/events/" + eventId));
+        if (!hits.isEmpty()) {
             return hits.get(0).getHits();
-        }else {
+        } else {
             return 0L;
         }
     }

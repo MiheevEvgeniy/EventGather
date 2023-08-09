@@ -1,6 +1,5 @@
 package ru.practicum;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -23,6 +22,7 @@ public class BaseClient {
     protected <T> ResponseEntity<Object> post(String path, T body) {
         return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
+
     private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path,
                                                           @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());

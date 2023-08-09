@@ -21,12 +21,12 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public List<CompilationDto> getCompilations(Boolean pinned, Integer from, Integer size) {
         PagedListHolder page;
-        if(pinned){
+        if (pinned) {
             page = new PagedListHolder(repository.findAllByPinned(pinned)
                     .stream()
                     .map(mapper::toDto)
                     .collect(Collectors.toList()));
-        }else {
+        } else {
             page = new PagedListHolder(repository.findAll()
                     .stream()
                     .map(mapper::toDto)

@@ -32,9 +32,10 @@ import ru.practicum.user.model.User;
 import ru.practicum.user.repository.RequestRepository;
 import ru.practicum.user.repository.UserRepository;
 
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,14 +59,14 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public CompilationDto addCompilation(NewCompilationDto newCompilationDto) {
         List<Event> events = new ArrayList<>();
-        if(newCompilationDto.getEvents()!=null){
-            for (Long id:newCompilationDto.getEvents()) {
+        if (newCompilationDto.getEvents() != null) {
+            for (Long id : newCompilationDto.getEvents()) {
                 events.add(eventRepository.getById(id));
             }
         }
         return compilationMapper.toDto(
                 compilationRepository.save(
-                        compilationMapper.toEntity(newCompilationDto,events)));
+                        compilationMapper.toEntity(newCompilationDto, events)));
     }
 
     @Override
@@ -77,26 +78,27 @@ public class AdminServiceImpl implements AdminService {
     public CompilationDto updateCompilation(UpdateCompilationRequest updComp, long compId) {
         Compilation actualCompilation = compilationRepository.getById(compId);
         List<Event> events = new ArrayList<>();
-        if(updComp.getEvents()!=null){
-            for (Long id:updComp.getEvents()) {
+        if (updComp.getEvents() != null) {
+            for (Long id : updComp.getEvents()) {
                 events.add(eventRepository.getById(id));
             }
         }
         Compilation updCompilation = compilationMapper.toEntity(updComp, events);
-        if(updCompilation.getEvents() != null){
+        if (updCompilation.getEvents() != null) {
             actualCompilation.setEvents(updCompilation.getEvents());
         }
-        if(updCompilation.isPinned() != actualCompilation.isPinned()){
+        if (updCompilation.isPinned() != actualCompilation.isPinned()) {
             actualCompilation.setPinned(updCompilation.isPinned());
         }
-        if(updCompilation.getTitle()!=null){
-            if(updCompilation.getTitle().length()>50){
+        if (updCompilation.getTitle() != null) {
+            if (updCompilation.getTitle().length() > 50) {
                 throw new BadRequestException("Compilation title is invalid");
             }
             actualCompilation.setTitle(updCompilation.getTitle());
         }
         return compilationMapper.toDto(compilationRepository.save(actualCompilation));
     }
+
     //-------------Categories------------------
     @Override
     public CategoryDto addCategory(NewCategoryDto newCategoryDto) {
@@ -107,8 +109,8 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteCategory(long catId) {
         Category category = categoryRepository.getById(catId);
-        if(category == null){
-            throw new NotFoundException("Category with id ="+catId+" was not found");
+        if (category == null) {
+            throw new NotFoundException("Category with id =" + catId + " was not found");
         }
         categoryRepository.deleteById(catId);
     }
@@ -117,14 +119,15 @@ public class AdminServiceImpl implements AdminService {
     public CategoryDto updateCategory(long catId, CategoryDto body) {
         Category actualCategory = categoryRepository.getById(catId);
         Category updCategory = categoryMapper.toEntity(body);
-        if(!updCategory.getName().equals(actualCategory.getName())){
-            if(updCategory.getName().length()>50){
+        if (!updCategory.getName().equals(actualCategory.getName())) {
+            if (updCategory.getName().length() > 50) {
                 throw new BadRequestException("Name of category is invalid");
             }
             actualCategory.setName(updCategory.getName());
         }
         return categoryMapper.toDto(categoryRepository.save(actualCategory));
     }
+
     //-------------Events------------------
     @Override
     public List<EventFullDto> searchEvent(List<Long> users,
@@ -134,9 +137,7 @@ public class AdminServiceImpl implements AdminService {
                                           LocalDateTime rangeEnd,
                                           int from,
                                           int size) {
-        System.out.println("--------------------------------");
-        System.out.println(dynamicEventRepository.searchEvent(users,states,categories,rangeStart,rangeEnd));
-        PagedListHolder page = new PagedListHolder(dynamicEventRepository.searchEvent(users,states,categories,rangeStart,rangeEnd)
+        PagedListHolder page = new PagedListHolder(dynamicEventRepository.searchEvent(users, states, categories, rangeStart, rangeEnd)
                 .stream()
                 .map(event -> eventMapper.toFullDto(event, requestRepository.getConfirmedRequestsCount(event.getId())))
                 .collect(Collectors.toList()));
@@ -144,57 +145,59 @@ public class AdminServiceImpl implements AdminService {
         page.setPage(from);
         return new ArrayList<>(page.getPageList());
     }
+
     @Override
     public EventFullDto updateEvent(long eventId, UpdateEventAdminDto upd) {
         Event actualEvent = eventRepository.getById(eventId);
-        if(actualEvent.getState().equals(States.PUBLISHED)){
+        if (actualEvent.getState().equals(States.PUBLISHED)) {
             throw new ConflictException("Event is published.");
         }
-        if(actualEvent.getState().equals(States.CANCELED)){
+        if (actualEvent.getState().equals(States.CANCELED)) {
             throw new ConflictException("Event is canceled.");
         }
-        if(actualEvent.getState().equals(States.REJECTED)){
+        if (actualEvent.getState().equals(States.REJECTED)) {
             throw new ConflictException("Event is rejected.");
         }
-        if(upd.getAnnotation()!=null){
-            if(upd.getAnnotation().length()<20 || upd.getAnnotation().length()>2000){
+        if (upd.getAnnotation() != null) {
+            if (upd.getAnnotation().length() < 20 || upd.getAnnotation().length() > 2000) {
                 throw new BadRequestException("Annotation length is invalid");
             }
             actualEvent.setAnnotation(upd.getAnnotation());
         }
-        if(upd.getDescription()!=null){
-            if(upd.getDescription().length()<20 || upd.getDescription().length()>7000){
+        if (upd.getDescription() != null) {
+            if (upd.getDescription().length() < 20 || upd.getDescription().length() > 7000) {
                 throw new BadRequestException("Description length is invalid");
             }
             actualEvent.setDescription(upd.getDescription());
         }
-        if(upd.getPaid()!=null){
+        if (upd.getPaid() != null) {
             actualEvent.setPaid(upd.getPaid());
         }
-        if(upd.getEventDate()!=null){
-            if(upd.getEventDate().isBefore(LocalDateTime.now())){
+        if (upd.getEventDate() != null) {
+            if (upd.getEventDate().isBefore(LocalDateTime.now())) {
                 throw new BadRequestException("Event date is before current time.");
             }
             actualEvent.setEventDate(upd.getEventDate());
         }
-        if(upd.getTitle()!=null){
-            if(upd.getTitle().length()<3 || upd.getTitle().length()>120){
+        if (upd.getTitle() != null) {
+            if (upd.getTitle().length() < 3 || upd.getTitle().length() > 120) {
                 throw new BadRequestException("Title length is invalid");
             }
             actualEvent.setTitle(upd.getTitle());
         }
-        if(upd.getParticipantLimit()>0){
+        if (upd.getParticipantLimit() > 0) {
             actualEvent.setParticipantLimit(upd.getParticipantLimit());
         }
-        if(Objects.equals(upd.getStateAction(), EventStateAction.PUBLISH_EVENT)){
+        if (Objects.equals(upd.getStateAction(), EventStateAction.PUBLISH_EVENT)) {
             actualEvent.setPublishedOn(LocalDateTime.now());
             actualEvent.setState(States.PUBLISHED);
         }
-        if(Objects.equals(upd.getStateAction(), EventStateAction.REJECT_EVENT)){
+        if (Objects.equals(upd.getStateAction(), EventStateAction.REJECT_EVENT)) {
             actualEvent.setState(States.CANCELED);
         }
-        return eventMapper.toFullDto(eventRepository.save(actualEvent),requestRepository.getConfirmedRequestsCount(actualEvent.getId()));
+        return eventMapper.toFullDto(eventRepository.save(actualEvent), requestRepository.getConfirmedRequestsCount(actualEvent.getId()));
     }
+
     //-------------Users------------------
     @Override
     public UserDto addUser(NewUserRequest newUserRequest) {
@@ -210,9 +213,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<UserDto> getAllUsers(List<Long> ids, int from, int size) {
         List<User> users;
-        if(ids==null || ids.isEmpty()){
+        if (ids == null || ids.isEmpty()) {
             users = userRepository.findAll();
-        }else {
+        } else {
             users = userRepository.findAllById(ids);
         }
         PagedListHolder page = new PagedListHolder(users

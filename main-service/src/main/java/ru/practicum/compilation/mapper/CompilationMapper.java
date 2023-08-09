@@ -6,11 +6,9 @@ import ru.practicum.compilation.dto.CompilationDto;
 import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.compilation.model.Compilation;
-import ru.practicum.dtos.HitDto;
 import ru.practicum.event.mapper.EventMapper;
 import ru.practicum.event.model.Event;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CompilationMapper {
     private final EventMapper eventMapper;
+
     public Compilation toEntity(NewCompilationDto dto, List<Event> events) {
         Compilation entity = new Compilation();
         entity.setEvents(events);
@@ -25,6 +24,7 @@ public class CompilationMapper {
         entity.setTitle(dto.getTitle());
         return entity;
     }
+
     public Compilation toEntity(UpdateCompilationRequest dto, List<Event> events) {
         Compilation entity = new Compilation();
         entity.setEvents(events);

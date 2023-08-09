@@ -42,27 +42,25 @@ public class EventServiceImpl implements EventService {
                                          int from,
                                          int size,
                                          HttpServletRequest request) {
-        if(rangeStart==null){
+        if (rangeStart == null) {
             rangeStart = LocalDateTime.now().minusYears(1);
         }
-        if(rangeEnd==null){
+        if (rangeEnd == null) {
             rangeEnd = LocalDateTime.now().plusYears(100);
         }
-        if(rangeEnd.isBefore(rangeStart)){
+        if (rangeEnd.isBefore(rangeStart)) {
             throw new BadRequestException("End date is before start date.");
         }
         String sortStr;
-        if (sort.equals(EventSortBy.EVENT_DATE)){
+        if (sort.equals(EventSortBy.EVENT_DATE)) {
             sortStr = "eventDate";
-        }else {
+        } else {
             sortStr = "views";
         }
-        List<EventShortDto> result = dynamicRepository.getEvents(text,categories,paid,rangeStart,rangeEnd,onlyAvailable, sortStr)
+        List<EventShortDto> result = dynamicRepository.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sortStr)
                 .stream()
                 .map(mapper::toShortDto)
                 .collect(Collectors.toList());
-        System.out.println(result);
-
         result.forEach(event -> event.setViews(statService.getViews(event.getId())));
         PagedListHolder page = new PagedListHolder(result);
         page.setPageSize(size);
@@ -72,13 +70,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventFullDto getEventById(long eventId,HttpServletRequest request) {
+    public EventFullDto getEventById(long eventId, HttpServletRequest request) {
         Event event = repository.getById(eventId);
-        if (!event.getState().equals(States.PUBLISHED)){
+        if (!event.getState().equals(States.PUBLISHED)) {
             throw new NotFoundException("Published event not found.");
         }
         statService.addHit(request);
         event.setViews(statService.getViews(eventId));
-        return mapper.toFullDto(event,requestRepository.getConfirmedRequestsCount(event.getId()));
+        return mapper.toFullDto(event, requestRepository.getConfirmedRequestsCount(event.getId()));
     }
 }

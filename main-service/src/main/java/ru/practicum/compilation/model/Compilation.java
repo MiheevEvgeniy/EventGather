@@ -1,16 +1,11 @@
 package ru.practicum.compilation.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

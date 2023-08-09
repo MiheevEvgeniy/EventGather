@@ -24,7 +24,7 @@ public class CompilationController {
                                                 @RequestParam(defaultValue = "10")
                                                 @Min(1)
                                                 Integer size) {
-        return service.getCompilations(pinned,from,size);
+        return service.getCompilations(pinned, from, size);
     }
 
     @GetMapping("/{compId}")

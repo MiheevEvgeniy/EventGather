@@ -9,18 +9,16 @@ import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 import ru.practicum.user.dto.event.NewEventDto;
 import ru.practicum.user.mapper.UserMapper;
-import ru.practicum.user.model.Request;
 import ru.practicum.user.model.User;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class EventMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
+
     public Event toEntity(NewEventDto dto, Category category, User initiator) {
         Event entity = new Event();
         entity.setTitle(dto.getTitle());
@@ -36,6 +34,7 @@ public class EventMapper {
         entity.setRequestModeration(dto.getRequestModeration());
         return entity;
     }
+
     public EventFullDto toFullDto(Event entity, int confirmedRequestsCount) {
         return EventFullDto.builder()
                 .id(entity.getId())
@@ -55,6 +54,7 @@ public class EventMapper {
                 .requestModeration(entity.isRequestModeration())
                 .build();
     }
+
     public EventShortDto toShortDto(Event entity) {
         return EventShortDto.builder()
                 .id(entity.getId())

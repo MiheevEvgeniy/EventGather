@@ -1,6 +1,5 @@
 package ru.practicum.dtos;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

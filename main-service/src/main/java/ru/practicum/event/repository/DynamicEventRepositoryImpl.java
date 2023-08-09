@@ -1,9 +1,7 @@
 package ru.practicum.event.repository;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.enums.EventSortBy;
 import ru.practicum.enums.States;
-import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 
 import javax.persistence.EntityManager;
@@ -14,23 +12,25 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
+
 @Component
-public class DynamicEventRepositoryImpl implements DynamicEventRepository{
+public class DynamicEventRepositoryImpl implements DynamicEventRepository {
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public List<Event> searchEvent(List<Long> users, List<States> states, List<Long> categories, LocalDateTime rangeStart, LocalDateTime rangeEnd) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Event> query = builder.createQuery(Event.class);
         Root<Event> root = query.from(Event.class);
         Predicate criteria = builder.conjunction();
-        if (users != null && users.get(0)!=0) {
+        if (users != null && users.get(0) != 0) {
             criteria = builder.and(criteria, root.get("initiator").in(users));
         }
         if (states != null) {
             criteria = builder.and(criteria, root.get("state").in(states));
         }
-        if (categories != null && categories.get(0)!=0) {
+        if (categories != null && categories.get(0) != 0) {
             criteria = builder.and(criteria, root.get("category").in(categories));
         }
         if (rangeStart != null) {
@@ -54,7 +54,7 @@ public class DynamicEventRepositoryImpl implements DynamicEventRepository{
             Predicate description = builder.like(builder.lower(root.get("description")), "%" + text.toLowerCase() + "%");
             criteria = builder.and(criteria, builder.or(annotation, description));
         }
-        if (categories != null && categories.get(0)!=0) {
+        if (categories != null && categories.get(0) != 0) {
             criteria = builder.and(criteria, root.get("category").in(categories));
         }
         if (rangeStart != null) {

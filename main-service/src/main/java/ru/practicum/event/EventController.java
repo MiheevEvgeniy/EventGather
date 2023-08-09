@@ -26,18 +26,18 @@ public class EventController {
                                          @RequestParam(required = false) List<Long> categories,
                                          @RequestParam(required = false) boolean paid,
                                          @RequestParam(required = false)
-                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
                                                  pattern = "yyyy-MM-dd HH:mm:ss")
-                                             LocalDateTime rangeStart,
+                                         LocalDateTime rangeStart,
                                          @RequestParam(required = false)
-                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
                                                  pattern = "yyyy-MM-dd HH:mm:ss")
-                                             LocalDateTime rangeEnd,
+                                         LocalDateTime rangeEnd,
                                          @RequestParam(required = false, defaultValue = "false") boolean onlyAvailable,
                                          @RequestParam(required = false, defaultValue = "EVENT_DATE") EventSortBy sort,
                                          @RequestParam(defaultValue = "0") @Min(0) int from,
                                          @RequestParam(defaultValue = "10") @Min(1) int size,
-                                         HttpServletRequest request){
+                                         HttpServletRequest request) {
         log.info("Запрос getEvents начат с параметрами: " +
                 "text {}; " +
                 "categories {}; " +
@@ -47,13 +47,14 @@ public class EventController {
                 "onlyAvailable {}; " +
                 "sort {}; " +
                 "from {}; " +
-                "size {}.", text,categories,paid,rangeStart,rangeEnd,onlyAvailable,sort,from,size);
-        List<EventShortDto> result = service.getEvents(text,categories,paid,rangeStart,rangeEnd,onlyAvailable,sort,from,size, request);
+                "size {}.", text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+        List<EventShortDto> result = service.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size, request);
         log.info("Результат запроса {}", result);
         return result;
     }
+
     @GetMapping("/{eventId}")
-    public EventFullDto getEventById(@PathVariable long eventId, HttpServletRequest request){
+    public EventFullDto getEventById(@PathVariable long eventId, HttpServletRequest request) {
         log.info("Запрос getEventById начат с eventId {}", eventId);
         EventFullDto result = service.getEventById(eventId, request);
         log.info("Результат запроса {}", result);

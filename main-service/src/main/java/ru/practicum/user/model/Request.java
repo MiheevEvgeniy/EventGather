@@ -1,6 +1,8 @@
 package ru.practicum.user.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import ru.practicum.enums.States;
 
 import javax.persistence.*;

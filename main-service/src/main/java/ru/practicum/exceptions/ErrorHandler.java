@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -17,10 +16,11 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleConstraintViolationException(final Exception e) {
         return new ApiError(HttpStatus.CONFLICT,
-                            "Integrity constraint has been violated.",
-                            e.getMessage(),
-                            LocalDateTime.now());
+                "Integrity constraint has been violated.",
+                e.getMessage(),
+                LocalDateTime.now());
     }
+
     @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleNotFoundExceptionException(final Exception e) {
@@ -29,6 +29,7 @@ public class ErrorHandler {
                 e.getMessage(),
                 LocalDateTime.now());
     }
+
     @ExceptionHandler({BadRequestException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleBadRequestExceptionException(final Exception e) {
@@ -39,7 +40,7 @@ public class ErrorHandler {
     }
 
 
-//
+    //
 //    @ExceptionHandler({InvalidDataException.class, UnavailableItemException.class})
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    public ErrorResponse handleBadRequestException(final Exception e) {
@@ -64,20 +65,20 @@ public class ErrorHandler {
         HttpStatus status;
         LocalDateTime timestamp;
 
-    @Override
-    public String toString() {
-        return "ApiError{" +
-                "status=" + status +
-                ", reason='" + reason + '\'' +
-                ", message='" + message + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
-    }
+        @Override
+        public String toString() {
+            return "ApiError{" +
+                    "status=" + status +
+                    ", reason='" + reason + '\'' +
+                    ", message='" + message + '\'' +
+                    ", timestamp=" + timestamp +
+                    '}';
+        }
 
-    ApiError(HttpStatus status,
-             String reason,
-             String message,
-             LocalDateTime timestamp) {
+        ApiError(HttpStatus status,
+                 String reason,
+                 String message,
+                 LocalDateTime timestamp) {
             this.message = message;
             this.reason = reason;
             this.status = status;

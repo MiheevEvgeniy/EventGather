@@ -19,5 +19,6 @@ public interface EventService {
                                   int from,
                                   int size,
                                   HttpServletRequest request);
-    EventFullDto getEventById(long eventId,HttpServletRequest request);
+
+    EventFullDto getEventById(long eventId, HttpServletRequest request);
 }

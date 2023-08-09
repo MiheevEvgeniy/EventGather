@@ -17,7 +17,7 @@ public class JsonConfig {
         return builder -> {
 
             // formatter
-            DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             // deserializers
             builder.deserializers(new LocalDateTimeDeserializer(dateTimeFormatter));

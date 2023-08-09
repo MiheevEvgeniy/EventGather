@@ -4,7 +4,9 @@ import lombok.Builder;
 import lombok.Data;
 import ru.practicum.event.model.EventLocation;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
