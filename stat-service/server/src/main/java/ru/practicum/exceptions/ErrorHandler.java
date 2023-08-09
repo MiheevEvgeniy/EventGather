@@ -1,13 +1,11 @@
 package ru.practicum.exceptions;
 
 import lombok.Getter;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
@@ -21,6 +19,7 @@ public class ErrorHandler {
                 e.getMessage(),
                 LocalDateTime.now());
     }
+
     @Getter
     private static class ApiError {
         String message;

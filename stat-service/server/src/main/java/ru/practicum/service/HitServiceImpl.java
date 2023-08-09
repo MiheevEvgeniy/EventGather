@@ -24,7 +24,7 @@ public class HitServiceImpl implements HitService {
                                              LocalDateTime end,
                                              Boolean unique,
                                              List<String> uris) {
-        if(start.isAfter(end)){
+        if (start.isAfter(end)) {
             throw new BadRequestException("Start date is after end date");
         }
         Set<String> set = new HashSet<>();
