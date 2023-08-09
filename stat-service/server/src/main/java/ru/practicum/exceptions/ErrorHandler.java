@@ -12,23 +12,6 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ErrorHandler {
-    @ExceptionHandler({ConstraintViolationException.class, ConflictException.class})
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ApiError handleConstraintViolationException(final Exception e) {
-        return new ApiError(HttpStatus.CONFLICT,
-                "Integrity constraint has been violated.",
-                e.getMessage(),
-                LocalDateTime.now());
-    }
-
-    @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiError handleNotFoundExceptionException(final Exception e) {
-        return new ApiError(HttpStatus.NOT_FOUND,
-                "The required object was not found.",
-                e.getMessage(),
-                LocalDateTime.now());
-    }
 
     @ExceptionHandler({BadRequestException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)

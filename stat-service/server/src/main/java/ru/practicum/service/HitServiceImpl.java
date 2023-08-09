@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.dtos.HitDto;
 import ru.practicum.dtos.HitForStatDto;
+import ru.practicum.exceptions.BadRequestException;
 import ru.practicum.mapper.HitMapper;
 import ru.practicum.model.Hit;
 import ru.practicum.repository.HitRepository;
@@ -23,6 +24,9 @@ public class HitServiceImpl implements HitService {
                                              LocalDateTime end,
                                              Boolean unique,
                                              List<String> uris) {
+        if(start.isAfter(end)){
+            throw new BadRequestException("Start date is after end date");
+        }
         Set<String> set = new HashSet<>();
         List<Hit> hits;
         if (uris != null && !uris.isEmpty()) {
