@@ -1,4 +1,4 @@
-package ru.practicum.admin.dto.event;
+package ru.practicum.event.dto;
 
 import lombok.Builder;
 import lombok.Data;

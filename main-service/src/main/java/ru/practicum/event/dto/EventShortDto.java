@@ -2,8 +2,8 @@ package ru.practicum.event.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.admin.dto.user.UserShortDto;
 import ru.practicum.category.dto.CategoryDto;
+import ru.practicum.user.dto.user.UserShortDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

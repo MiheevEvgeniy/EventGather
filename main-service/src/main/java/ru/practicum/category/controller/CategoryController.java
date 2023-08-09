@@ -1,4 +1,4 @@
-package ru.practicum.category;
+package ru.practicum.category.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

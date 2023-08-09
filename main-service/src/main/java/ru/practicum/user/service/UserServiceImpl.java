@@ -20,6 +20,8 @@ import ru.practicum.user.dto.event.UpdateEventUserRequest;
 import ru.practicum.user.dto.request.EventRequestStatusUpdateRequest;
 import ru.practicum.user.dto.request.EventRequestStatusUpdateResult;
 import ru.practicum.user.dto.request.ParticipationRequestDto;
+import ru.practicum.user.dto.user.NewUserRequest;
+import ru.practicum.user.dto.user.UserDto;
 import ru.practicum.user.mapper.RequestMapper;
 import ru.practicum.user.mapper.UserMapper;
 import ru.practicum.user.model.Request;
@@ -98,7 +100,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<EventShortDto> getOwnedEvents(long userId, int from, int size) {
-        PagedListHolder page = new PagedListHolder(eventRepository.findAllByInitiatorId(userId)
+        PagedListHolder<EventShortDto> page = new PagedListHolder<>(eventRepository.findAllByInitiatorId(userId)
                 .stream()
                 .map(eventMapper::toShortDto)
                 .collect(Collectors.toList()));
@@ -211,4 +213,35 @@ public class UserServiceImpl implements UserService {
         }
         return requestMapper.toResultDto(confirmed, rejected);
     }
+
+    //--------------------Admin----------------------
+
+    @Override
+    public UserDto addUser(NewUserRequest newUserRequest) {
+        return mapper.toFullDto(
+                repository.save(mapper.toEntity(newUserRequest)));
+    }
+
+    @Override
+    public void deleteUser(long userId) {
+        repository.deleteById(userId);
+    }
+
+    @Override
+    public List<UserDto> getAllUsers(List<Long> ids, int from, int size) {
+        List<User> users;
+        if (ids == null || ids.isEmpty()) {
+            users = repository.findAll();
+        } else {
+            users = repository.findAllById(ids);
+        }
+        PagedListHolder<UserDto> page = new PagedListHolder<>(users
+                .stream()
+                .map(mapper::toFullDto)
+                .collect(Collectors.toList()));
+        page.setPageSize(size);
+        page.setPage(from);
+        return new ArrayList<>(page.getPageList());
+    }
+
 }

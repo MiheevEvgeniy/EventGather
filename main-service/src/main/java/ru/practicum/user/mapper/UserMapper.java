@@ -1,9 +1,9 @@
 package ru.practicum.user.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.admin.dto.user.NewUserRequest;
-import ru.practicum.admin.dto.user.UserDto;
-import ru.practicum.admin.dto.user.UserShortDto;
+import ru.practicum.user.dto.user.NewUserRequest;
+import ru.practicum.user.dto.user.UserDto;
+import ru.practicum.user.dto.user.UserShortDto;
 import ru.practicum.user.model.User;
 
 @Component
