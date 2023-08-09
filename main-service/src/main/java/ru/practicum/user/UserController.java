@@ -88,8 +88,7 @@ public class UserController {
                                          @PathVariable long eventId,
                                          @Valid
                                          @RequestBody UpdateEventUserRequest updBody) {
-        log.info("Выполнение запроса updateOwnedEvent начато с userId {} и eventId {} и телом {}"
-                , userId, eventId, updBody);
+        log.info("Выполнение запроса updateOwnedEvent начато с userId {} и eventId {} и телом {}", userId, eventId, updBody);
         EventFullDto result = service.updateOwnedEvent(userId, eventId, updBody);
         log.info("Результат запроса {}", result);
         return result;
@@ -108,8 +107,7 @@ public class UserController {
     public EventRequestStatusUpdateResult updateEventRequestsStatus(@PathVariable long userId,
                                                                     @PathVariable long eventId,
                                                                     @RequestBody EventRequestStatusUpdateRequest updRequest) {
-        log.info("Выполнение запроса updateEventRequestsStatus начато с userId {} и eventId {} и телом {}"
-                , userId, eventId, updRequest);
+        log.info("Выполнение запроса updateEventRequestsStatus начато с userId {} и eventId {} и телом {}", userId, eventId, updRequest);
         EventRequestStatusUpdateResult result = service.updateEventRequestsStatus(userId, eventId, updRequest);
         log.info("Результат запроса {}", result);
         return result;

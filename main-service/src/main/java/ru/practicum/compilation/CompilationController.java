@@ -24,11 +24,16 @@ public class CompilationController {
                                                 @RequestParam(defaultValue = "10")
                                                 @Min(1)
                                                 Integer size) {
+        log.info("Запрос getCompilations начат с параметрами: " +
+                "pinned = {}; " +
+                "from = {}; " +
+                "size = {}.", pinned, from, size);
         return service.getCompilations(pinned, from, size);
     }
 
     @GetMapping("/{compId}")
     public CompilationDto getCompilationById(@PathVariable long compId) {
+        log.info("Запрос getCompilationById начат с id: {}", compId);
         return service.getCompilationById(compId);
     }
 }
