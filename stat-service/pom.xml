@@ -20,7 +20,7 @@
     <modules>
         <module>server</module>
         <module>client</module>
-        <module>dtos</module>
+        <module>dto</module>
     </modules>
     <dependencies>
         <dependency>

@@ -3,6 +3,7 @@ package ru.practicum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dtos.HitDto;
 import ru.practicum.dtos.HitForStatDto;
@@ -19,21 +20,21 @@ public class HitController {
     private final HitService service;
 
     @PostMapping("hit")
-    public String addHit(@RequestBody HitDto hitDto) {
-        log.info("Обработка запроса addHit начата: {}", hitDto);
-        String response = service.addHit(hitDto);
-        log.info("Результат запроса: {}", response);
-        return response;
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addHit(@RequestBody HitDto hitDto) {
+        log.info("Запроса addHit начат с телом: {}", hitDto);
+        service.addHit(hitDto);
+        log.info("Запрос завершен");
     }
 
     @GetMapping("stats")
-    public List<HitForStatDto> getStatistics(@RequestParam(value = "start", defaultValue = "1")
-                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
-                                                     pattern = "yyyy-MM-dd HH:mm:ss")
+    public List<HitForStatDto> getStatistics(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
                                              LocalDateTime start,
-                                             @RequestParam
-                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
-                                                     pattern = "yyyy-MM-dd HH:mm:ss")
+                                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,
+                                                     pattern = "yyyy-MM-dd HH:mm:ss",
+                                                     fallbackPatterns = "yyyy-MM-dd'T'HH:mm:ss")
                                              LocalDateTime end,
                                              @RequestParam(defaultValue = "false") Boolean unique,
                                              @RequestParam(required = false) List<String> uris) {
