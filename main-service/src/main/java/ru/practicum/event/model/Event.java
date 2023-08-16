@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.practicum.category.model.Category;
 import ru.practicum.enums.States;
+import ru.practicum.location.model.Location;
 import ru.practicum.user.model.Request;
 import ru.practicum.user.model.User;
 
@@ -39,7 +40,7 @@ public class Event {
     private User initiator;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id", nullable = false)
-    private EventLocation location;
+    private Location location;
     @Column(nullable = false)
     private boolean paid;
     @Column(name = "published_on")

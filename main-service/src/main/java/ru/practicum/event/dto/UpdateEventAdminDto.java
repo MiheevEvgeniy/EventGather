@@ -3,7 +3,7 @@ package ru.practicum.event.dto;
 import lombok.Builder;
 import lombok.Data;
 import ru.practicum.enums.EventStateAction;
-import ru.practicum.event.model.EventLocation;
+import ru.practicum.location.model.Location;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,7 @@ public class UpdateEventAdminDto {
     private long category;
     private String description;
     private LocalDateTime eventDate;
-    private EventLocation location;
+    private Location location;
     private Boolean paid;
     private int participantLimit;
     private boolean requestModeration;
