@@ -1,8 +1,10 @@
-package ru.practicum.event.model;
+package ru.practicum.location.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.practicum.enums.LocationStatuses;
+import ru.practicum.enums.LocationTypes;
 
 import javax.persistence.*;
 
@@ -11,12 +13,22 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class EventLocation {
+public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
+    private String name;
+    @Column
+    private String description;
+    @Column
+    private String country;
+    @Enumerated(EnumType.STRING)
+    private LocationTypes type;
     @Column(nullable = false)
     private double lat; //Широта
     @Column(nullable = false)
     private double lon; //Долгота
+    @Enumerated(EnumType.STRING)
+    private LocationStatuses status;
 }

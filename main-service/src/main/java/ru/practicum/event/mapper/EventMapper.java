@@ -7,6 +7,7 @@ import ru.practicum.category.model.Category;
 import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
+import ru.practicum.location.mapper.LocationMapper;
 import ru.practicum.user.dto.event.NewEventDto;
 import ru.practicum.user.mapper.UserMapper;
 import ru.practicum.user.model.User;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class EventMapper {
     private final CategoryMapper categoryMapper;
     private final UserMapper userMapper;
+    private final LocationMapper locationMapper;
 
     public Event toEntity(NewEventDto dto, Category category, User initiator) {
         Event entity = new Event();
@@ -28,7 +30,7 @@ public class EventMapper {
         entity.setDescription(dto.getDescription());
         entity.setParticipantLimit(dto.getParticipantLimit());
         entity.setEventDate(dto.getEventDate());
-        entity.setLocation(dto.getLocation());
+        entity.setLocation(locationMapper.toEntity(dto.getLocation()));
         entity.setCreatedOn(LocalDateTime.now());
         entity.setPaid(dto.isPaid());
         entity.setRequestModeration(dto.getRequestModeration());
@@ -48,7 +50,7 @@ public class EventMapper {
                 .confirmedRequests(confirmedRequestsCount)
                 .createdOn(entity.getCreatedOn())
                 .initiator(userMapper.toShortDto(entity.getInitiator()))
-                .location(entity.getLocation())
+                .location(locationMapper.toDto(entity.getLocation()))
                 .state(entity.getState())
                 .paid(entity.isPaid())
                 .requestModeration(entity.isRequestModeration())

@@ -3,7 +3,7 @@ package ru.practicum.user.dto.event;
 import lombok.Builder;
 import lombok.Data;
 import ru.practicum.enums.EventStateAction;
-import ru.practicum.event.model.EventLocation;
+import ru.practicum.location.dto.LocationDto;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,7 @@ public class UpdateEventUserRequest {
     private Long category;
     private String description;
     private LocalDateTime eventDate;
-    private EventLocation location;
+    private LocationDto location;
     private Boolean paid;
     private Integer participantLimit;
     private Boolean requestModeration;
