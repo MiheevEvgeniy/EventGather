@@ -2,7 +2,7 @@ package ru.practicum.user.dto.event;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.location.model.Location;
+import ru.practicum.location.dto.LocationDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ public class NewEventDto {
     @NotNull
     private LocalDateTime eventDate;
     @NotNull
-    private Location location;
+    private LocationDto location;
     private boolean paid;
     private int participantLimit;
     @Builder.Default

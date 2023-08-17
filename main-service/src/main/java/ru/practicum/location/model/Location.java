@@ -17,11 +17,11 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(nullable = false)
+    @Column
     private String description;
-    @Column(nullable = false)
+    @Column
     private String country;
     @Enumerated(EnumType.STRING)
     private LocationTypes type;

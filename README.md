@@ -1,2 +1,4 @@
 # java-explore-with-me
-Template repository for ExploreWithMe project.
+
+Ссылка на пул-реквест:
+https://github.com/KlingTone/java-explore-with-me/pull/5#issue-1854028869
