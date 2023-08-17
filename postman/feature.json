@@ -766,20 +766,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1190,20 +1183,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1282,32 +1268,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/search?name=&type=PUBLIC&status=ENABLED&country=",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								"search"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": ""
-								},
-								{
-									"key": "type",
-									"value": "PUBLIC"
-								},
-								{
-									"key": "status",
-									"value": "ENABLED"
-								},
-								{
-									"key": "country",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1386,20 +1353,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1478,32 +1438,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/search?name=&type=PUBLIC&status=ENABLED&country=",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								"search"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": ""
-								},
-								{
-									"key": "type",
-									"value": "PUBLIC"
-								},
-								{
-									"key": "status",
-									"value": "ENABLED"
-								},
-								{
-									"key": "country",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1582,20 +1523,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1674,20 +1608,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
@@ -1766,20 +1693,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/:locId",
+							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations",
-								":locId"
-							],
-							"variable": [
-								{
-									"key": "locId",
-									"value": ""
-								}
+								"locations"
 							]
 						}
 					},
