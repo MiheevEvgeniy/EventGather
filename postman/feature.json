@@ -766,13 +766,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -841,7 +848,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations/search",
+							"raw": "{{baseUrl}}/admin/locations/search?type=PUBLIC&status=ENABLED&name=&country=",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -858,13 +865,11 @@
 								},
 								{
 									"key": "type",
-									"value": "PUBLIC",
-									"disabled": true
+									"value": "PUBLIC"
 								},
 								{
 									"key": "status",
-									"value": "ENABLED",
-									"disabled": true
+									"value": "ENABLED"
 								},
 								{
 									"key": "country",
@@ -880,6 +885,14 @@
 									"key": "size",
 									"value": "10",
 									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "country",
+									"value": ""
 								}
 							]
 						}
@@ -1167,14 +1180,30 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1243,14 +1272,42 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/search?name=&type=PUBLIC&status=ENABLED&country=",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "type",
+									"value": "PUBLIC"
+								},
+								{
+									"key": "status",
+									"value": "ENABLED"
+								},
+								{
+									"key": "country",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1319,14 +1376,30 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1395,14 +1468,42 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/search?name=&type=PUBLIC&status=ENABLED&country=",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "type",
+									"value": "PUBLIC"
+								},
+								{
+									"key": "status",
+									"value": "ENABLED"
+								},
+								{
+									"key": "country",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1471,14 +1572,30 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1547,14 +1664,30 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1623,14 +1756,30 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/locations",
+							"raw": "{{baseUrl}}/admin/locations/:locId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"admin",
-								"locations"
+								"locations",
+								":locId"
+							],
+							"variable": [
+								{
+									"key": "locId",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1699,6 +1848,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{request_body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{baseUrl}}/admin/locations",
 							"host": [
